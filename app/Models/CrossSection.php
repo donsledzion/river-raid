@@ -51,9 +51,37 @@ class CrossSection extends Model
         return $this->hasMany(Point::class)->orderBy('x','asc');
     }
 
+    /**
+     * Method analyses cross-section points and returns the shortest
+     * horizontal distance (offset) between any points
+    */
+    public function minPointsDiff():float
+    {
+        $points = $this->points->toArray();
+        $offset = $points[1]['x'] - $points[0]['x'] ;
+        foreach($points as $key => $point){
+            if($key>1){
+                if(($point['x']-$points[$key-1]['x'])<$offset){
+                    $offset = $point['x']-$points[$key-1]['x'] ;
+                }
+            }
+        }
+        return $offset;
+    }
+
+    /**
+     * Method analyses points structure, compares it with scale and
+     * calculates the best font size for picture
+    */
+    public function fitFont():float
+    {
+        return ($this->minPointsDiff()/$this->h_scale)/2;
+    }
+
     public function drawCad(float $start_x=0, float $start_y=0):string
     {
         try {
+            $this->font_size = $this->fitFont();
             $fileName = "storage/cross_sections/scripts/" . $this->name . "_" . $this->id . "_cs.scr";
             $dwgScript = fopen($fileName, "w") or die("Unable to open file!");
 
