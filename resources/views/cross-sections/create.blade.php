@@ -65,17 +65,25 @@
 
                         <tr class="m-0 p-0">
 
-                            <th>Name</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Name</div></th>
 
-                            <th>Position</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Position</div></th>
 
-                            <th>Vertical scale</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">V scale</div></th>
 
-                            <th>Horizontal scale</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">H scale</div></th>
 
-                            <th>Comp. Lvl</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">L Bank</div></th>
 
-                            <th>Font size</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">R Bank</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Ref. Lvl</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Water lvl.</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Bottom</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Font size</div></th>
 
                         </tr>
 
@@ -89,7 +97,15 @@
 
                             <td><input type="number" name="h_scale" placeholder="" class="form-control" value="100" /></td>
 
-                            <td><input type="number" id="comp_lvl" name="comparison_level" placeholder="" class="form-control" value="0" /></td>
+                            <td><input type="number" name="bank_l" placeholder="left bank" class="form-control" value="" /></td>
+
+                            <td><input type="number" name="bank_r" placeholder="right bank" class="form-control" value="" /></td>
+
+                            <td><input type="number" id="ref_lvl" name="reference_level" placeholder="" class="form-control" value="0" /></td>
+
+                            <td><input type="number" name="water_lvl" placeholder="right bank" class="form-control" value="" /></td>
+
+                            <td><input type="number" name="bottom" placeholder="right bank" class="form-control" value="" /></td>
 
                             <td><input type="number" name="font_size" placeholder="" class="form-control" value="12" /></td>
 
@@ -99,12 +115,12 @@
             <div class="d-inline-flex w-100">
 
                 <div class="w-75 d-inline-block bg-dark">
-                    <canvas id="canvas" class="bg-secondary w-100 h-100" >
+                    <canvas id="canvas" class="bg-info w-100 h-100" >
 
                     </canvas>
                 </div>
 
-                <div class="w-25 d-inline-block bg-primary">
+                <div class="w-25 d-inline-block bg-transparent">
 
                     <table class="table table-bordered p-0 m-0" id="dynamicTable" style="border-spacing: 0px !important;">
 
@@ -122,13 +138,21 @@
 
                         <tr class="cs-p p-0 m-0" data-id="0">
 
-                            <td class="p-0 m-0"><input type="number" name="point[0][number]" placeholder="1" class="form-control p-0 m-0 text-sm-center" value="1" readonly /></td>
+                            <td class="p-0 m-0">
+                                <input id="cs-i-0" type="number" name="point[0][number]" class="form-control p-0 m-0 text-sm-center" value="1" readonly />
+                            </td>
 
-                            <td class="p-0 m-0"><input  data-id="0" id="cs-x-0" type="number" name="point[0][x]" placeholder="0.0" class="cs-x form-control p-0 m-0 text-sm-center" step="0.01" value="0.00" /></td>
+                            <td class="p-0 m-0">
+                                <input id="cs-x-0" data-id="0" type="number" name="point[0][x]" class="cs-x form-control p-0 m-0 text-sm-center" step="0.01" value="0.00" />
+                            </td>
 
-                            <td class="p-0 m-0"><input data-id="0" id="cs-y-0" type="number" name="point[0][y]" placeholder="0.0" class="cs-y form-control p-0 m-0 text-sm-center" step="0.01"  value="0.00"/></td>
+                            <td class="p-0 m-0">
+                                <input id="cs-y-0" data-id="0" type="number" name="point[0][y]" class="cs-y form-control p-0 m-0 text-sm-center" step="0.01"  value="0.00"/>
+                            </td>
 
-                            <td class="p-0 m-0"><button type="button" name="add" id="add" class="btn btn-success w-100">+</button></td>
+                            <td class="p-0 m-0">
+                                <button type="button" name="add" id="add" class="btn btn-success w-100">+</button>
+                            </td>
 
                         </tr>
 
@@ -136,13 +160,7 @@
                     <button type="submit" class="btn btn-success w-50 d-inline p-0 m-0">Save</button>
                     <button id="draw-button" type="button" class="btn btn-secondary w-25 d-inline p-0 m-0">Draw</button>
                 </div>
-
-
         </div>
-
-
-
-
 
                 </form>
         </div>

@@ -23,10 +23,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/cross-sections/',                      [CrossSectionController::class,'index'])->name('cross_sections.index')->middleware('auth');;
-Route::get('/cross-sections/create',                [CrossSectionController::class,'create'])->name('cross_sections.create')->middleware('auth');
-Route::get('/cross-sections/edit/{crosssection}',   [CrossSectionController::class,'edit'])->name('cross_sections.edit')->middleware('auth');
-Route::post('/cross-sections',                      [CrossSectionController::class,'store'])->name('cross_sections.store')->middleware('auth');
-Route::post('/cross-sections/{crosssection}',       [CrossSectionController::class,'update'])->name('cross_sections.update')->middleware('auth');
-Route::delete('/cross-sections/{crosssection}',     [CrossSectionController::class,'destroy'])->name('cross_sections.delete')->middleware('auth');
+Route::get('/cross-sections/',                          [CrossSectionController::class,'index'])->name('cross_sections.index')->middleware('auth');;
+Route::get('/cross-sections/create',                    [CrossSectionController::class,'create'])->name('cross_sections.create')->middleware('auth');
+Route::get('/cross-sections/edit/{crosssection}',       [CrossSectionController::class,'edit'])->name('cross_sections.edit')->middleware('auth');
+Route::get('/cross-sections/to-dwg/{crosssection}',     [CrossSectionController::class,'dwgExport'])->name('cross_sections.dwg')->middleware('auth');
+Route::post('/cross-sections',                          [CrossSectionController::class,'store'])->name('cross_sections.store')->middleware('auth');
+Route::post('/cross-sections/{crosssection}',           [CrossSectionController::class,'update'])->name('cross_sections.update')->middleware('auth');
+Route::delete('/cross-sections/{crosssection}',         [CrossSectionController::class,'destroy'])->name('cross_sections.delete')->middleware('auth');
 

@@ -29,7 +29,11 @@ class CrossSectionRequest extends FormRequest
             'position' => 'nullable|numeric',
             'v_scale' => 'nullable|numeric',
             'h_scale' => 'nullable|numeric',
-            'comparison_level' => 'required|numeric',
+            'bank_l' => 'nullable|numeric',
+            'bank_r' => 'nullable|numeric',
+            'reference_level' => 'required|numeric',
+            'bottom' => 'nullable|numeric',
+            'water_lvl' => 'nullable|numeric',
             'font_size' => 'nullable|numeric',
         ];
     }

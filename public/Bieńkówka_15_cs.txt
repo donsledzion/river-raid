@@ -1,0 +1,8 @@
+_snap
+_off
+_grid
+_off
+_ortho
+_off
+_osmode
+0

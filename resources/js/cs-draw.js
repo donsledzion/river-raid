@@ -1,8 +1,10 @@
 let i = $('.cs-p').length-1;
 draw();
-$("#add").click(function(){
+
+$(document).on('click', '#add',function(){
     draw();
     ++i;
+    console.log("Clicked! (i = "+i+" )");
     $("#dynamicTable")
         .append('' +
             '<tr class="cs-p p-0 m-0" data-id="'+i+'">' +
@@ -39,7 +41,7 @@ function draw() {
     console.clear();
 
     let CrossSection = [];
-    let compLvl = $("#comp_lvl").val();
+    let refLvl = $("#ref_lvl").val();
 
     $(".cs-x").each(function() {
             let x = $("#cs-x-" + $(this).data("id")).val();
@@ -126,20 +128,25 @@ function draw() {
         let x_offset = canvas.width*0.1;
         let y_offset = +120;
 
-        let xMultip = ((canvas.width - 2*x_offset)) / (+csWidth) ;
-        let yMultip = ((canvas.height - 2*x_offset)) / (+csHeight) ;
+        let xMultip = 1 ;
+        let yMultip = 1 ;
+
+        if(i > 1) {
+            xMultip = ((canvas.width - 2 * x_offset)) / (+csWidth);
+            yMultip = ((canvas.height - 2 * x_offset)) / (+csHeight);
+        }
         console.log("xMultip: "+xMultip);
         console.log("yMultip: "+yMultip);
-        console.log("compLvl: "+compLvl);
+        console.log("refLvl: "+refLvl);
         ctx.beginPath();
         ctx.moveTo(0,y_offset);
         ctx.lineTo(x_offset,y_offset);
-        ctx.lineTo(x_offset+ +CrossSection[0].distance,y_offset- (+CrossSection[0].height - +compLvl)*yMultip);
+        ctx.lineTo(x_offset+ +CrossSection[0].distance,y_offset- (+CrossSection[0].height - +refLvl)*yMultip);
         for(let k = 1 ; k < CrossSection.length ; k++){
             ctx.moveTo(x_offset+ +xMultip*CrossSection[k-1].distance,y_offset);
             ctx.lineTo(x_offset+ +xMultip*CrossSection[k].distance,y_offset);
-            ctx.lineTo(x_offset+ +xMultip*CrossSection[k].distance,y_offset- (+CrossSection[k].height - +compLvl)*yMultip);
-            ctx.lineTo(x_offset+ +xMultip*CrossSection[k-1].distance,y_offset- (+CrossSection[k-1].height - +compLvl)*yMultip);
+            ctx.lineTo(x_offset+ +xMultip*CrossSection[k].distance,y_offset- (+CrossSection[k].height - +refLvl)*yMultip);
+            ctx.lineTo(x_offset+ +xMultip*CrossSection[k-1].distance,y_offset- (+CrossSection[k-1].height - +refLvl)*yMultip);
         }
 
         //ctx.closePath();

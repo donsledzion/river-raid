@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class CrossSectionController extends Controller
@@ -40,7 +41,7 @@ class CrossSectionController extends Controller
      *
      * @return JsonResponse|Redirector
      */
-    public function store(CrossSectionRequest $request):JsonResponse
+    public function store(CrossSectionRequest $request)
     {
         try {
             $attributes = $request->validated();
@@ -147,6 +148,27 @@ class CrossSectionController extends Controller
         return view('cross-sections.edit',[
             'crossSection' => $crossSection,
         ]);
+    }
+
+    public function dwgExport($id){
+        try {
+            $crossSection = CrossSection::find($id);
+
+            $downloadLink = $crossSection->drawCad();
+
+            return response()->json([
+                'title' => 'Success',
+                'message' => 'cross section successfully exported to script file',
+                'download' => $downloadLink,
+            ])->setStatusCode(200);
+
+        } catch (\Exception $e){
+            Log::error("CrossSectionController@dwgExport error:".$e->getMessage());
+            return response()->json([
+                'title' => 'Fail',
+                'message' => 'Some error occurred while exporting your cross section',
+            ])->setStatusCode(500);
+        }
     }
 
 }

@@ -63,17 +63,25 @@
 
                         <tr class="m-0 p-0">
 
-                            <th>Name</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Name</div></th>
 
-                            <th>Position</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Position</div></th>
 
-                            <th>Vertical scale</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">V scale</div></th>
 
-                            <th>Horizontal scale</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">H scale</div></th>
 
-                            <th>Comp. Lvl</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">L Bank</div></th>
 
-                            <th>Font size</th>
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">R Bank</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Ref. Lvl</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Water lvl.</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Bottom</div></th>
+
+                            <th><div class="bg-white p-2 text-xl-center" style="border-radius: 2px;">Font size</div></th>
 
                         </tr>
 
@@ -87,9 +95,17 @@
 
                             <td><input type="number" name="h_scale" placeholder="" class="form-control" value="{{$crossSection->h_scale}}" /></td>
 
-                            <td><input type="number" id="comp_lvl" name="comparison_level" placeholder="" class="form-control" value="{{$crossSection->comparison_level}}" /></td>
+                            <td><input type="number" name="bank_l" placeholder="" class="form-control" value="{{$crossSection->bank_l}}" /></td>
 
-                            <td><input type="number" name="font_size" placeholder="" class="form-control" value="{{$crossSection->font_size}}" /></td>
+                            <td><input type="number" name="bank_r" placeholder="" class="form-control" value="{{$crossSection->bank_r}}" /></td>
+
+                            <td><input type="number" id="ref_lvl" name="reference_level" placeholder="" class="form-control" value="{{$crossSection->reference_level}}" /></td>
+
+                            <td><input type="number" name="water_lvl" placeholder="" class="form-control" value="{{$crossSection->water_lvl}}" /></td>
+
+                            <td><input type="number" name="bottom" placeholder="" class="form-control" value="{{$crossSection->bottom}}" /></td>
+
+                            <td><input type="number" step="0.01" name="font_size" placeholder="" class="form-control" value="{{$crossSection->font_size}}" /></td>
 
                         </tr>
 
@@ -144,24 +160,45 @@
                             </table>
                             <button type="submit" class="btn btn-success w-50 d-inline p-0 m-0">Save</button>
                             <button id="draw-button" type="button" class="btn btn-secondary w-25 d-inline p-0 m-0">Draw</button>
+                            <button id="dwg-export-button" type="button" data-id="{{$crossSection->id}}" class="btn btn-success w-25 d-inline p-0 m-0">Export DWG</button>
                         </div>
-
-
                     </div>
-
-
-
-
-
                 </form>
             </div>
         </div>
-
-
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript">
-
+        const uri = "{{asset('/cross-sections/to-dwg/')}}";
+        console.log("uri: "+uri);
+        $(function(){
+            $('#dwg-export-button').click(function(){
+                let csId = $(this).data("id");
+                console.log("Exporting cs_id:"+csId);
+                $.ajax({
+                    method: "get",
+                    url: uri+"/"+csId,
+                }).done(function( data ){
+                    /*Swal.fire(
+                        data.title,
+                        data.message,
+                        'success'
+                    )*/
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.title,
+                        text: data.message,
+                        footer: '<a href="'+data.download+'" download>Download script</a>'
+                    })
+                }).fail(function( data ){
+                    Swal.fire(
+                        'Error',
+                        data.responseJSON.message,
+                        'error'
+                    )
+                })
+            });
+        })
 
     </script>
 

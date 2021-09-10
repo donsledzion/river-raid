@@ -32,6 +32,15 @@ return [
             'title' => 'Create new cross-section',
         ],
 
+        'drawing' => [
+            'ref_lvl' => "Reference level",
+            'asl' => 'ASL',
+            'offset' => 'offset',
+            'elevation' => 'elevation',
+            'cs_name' => 'Cross-section name:',
+
+        ],
+
         'edit' => [
             'title' => 'Edit cross-section',
         ],

@@ -25,6 +25,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'nullable|string'
+
         ];
     }
 }

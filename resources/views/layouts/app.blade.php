@@ -22,7 +22,9 @@
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
 </head>
-<body>
+<body style="background-image: url({{asset("storage/pictures/home.jpg")}});background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
