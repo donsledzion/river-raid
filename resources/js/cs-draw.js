@@ -1,27 +1,42 @@
 let i = $('.cs-p').length-1;
 draw();
 
-$(document).on('click', '#add',function(){
-    draw();
-    ++i;
-    console.log("Clicked! (i = "+i+" )");
-    $("#dynamicTable")
-        .append('' +
-            '<tr class="cs-p p-0 m-0" data-id="'+i+'">' +
-                '<td class="p-0 m-0">' +
-                    '<input id="cs-i-'+i+'" type="number"  name="point['+i+'][number]" class="form-control text-sm-center" readonly value="'+(i+1)+'" />' +
-                '</td>' +
-                '<td class="p-0 m-0">' +
-                    '<input id="cs-x-'+i+'" type="number" name="point['+i+'][x]" data-id="'+i+'" class="cs-x form-control text-sm-center" step="0.01" value="0.00" />' +
-                '</td>' +
-                '<td class="p-0 m-0">' +
-                    '<input id="cs-y-'+i+'" type="number" name="point['+i+'][y]" data-id="'+i+'" class="cs-y form-control text-sm-center" step="0.01" value="0.00"  /></td>' +
-                '<td class="p-0 m-0">' +
-                    '<button type="button" class="btn btn-danger remove-tr w-100">-</button>' +
-                '</td>' +
-            '</tr>');
+document.onkeydown = (e) => {
+    if(e.key === 'Tab') {
+        if($("#cs-y-"+i).is(":focus")) {
+            console.log(e.key + ", i = " + i);
+            add();
+            $("#cs-i-"+i).focus().select();
+        }
+    } else {
+        console.log('sth else pressed');
+    }
+}
+$(document).on('click', '#add', function () {
+    add();
 });
+function add() {
 
+        draw();
+        ++i;
+        console.log("Clicked! (i = " + i + " )");
+        $("#dynamicTable")
+            .append('' +
+                '<tr class="cs-p p-0 m-0" data-id="' + i + '">' +
+                '<td class="p-0 m-0">' +
+                '<input id="cs-i-' + i + '" type="number"  name="point[' + i + '][number]" class="form-control text-sm-center" readonly value="' + (i + 1) + '" />' +
+                '</td>' +
+                '<td class="p-0 m-0">' +
+                '<input id="cs-x-' + i + '" type="number" name="point[' + i + '][x]" data-id="' + i + '" class="cs-x form-control text-sm-center" step="0.01" value="0.00" />' +
+                '</td>' +
+                '<td class="p-0 m-0">' +
+                '<input id="cs-y-' + i + '" type="number" name="point[' + i + '][y]" data-id="' + i + '" class="cs-y form-control text-sm-center" step="0.01" value="0.00"  /></td>' +
+                '<td class="p-0 m-0">' +
+                '<button type="button" class="btn btn-danger remove-tr w-100">-</button>' +
+                '</td>' +
+                '</tr>');
+
+}
 $(document).on('click', '.remove-tr', function(){
     $(this).parents('tr').remove();
     draw();
@@ -88,34 +103,6 @@ function draw() {
             csHeight = CrossSection[r].height ;
         }
     }
-    /******************************
-     * */
-    /*$(".cs-i").each(function() {
-
-            $("#cs-i-" + j)
-                .attr("value",j+1)
-                .attr("id","cs-i-"+j)
-                .attr("name","point["+j+"][number]");
-            //console.log("Insert into: x = "+$("#cs-x-" + j).val());
-            $("#cs-x-" + j)
-                .attr("value",CrossSection[j].distance)
-                .attr("id","cs-x-"+j)
-                .attr("data-id",+j)
-                .attr("name","point["+j+"][x]");
-            //console.log("Insert into: y = "+$("#cs-y-" + j).val());
-            $("#cs-y-" + j)
-                .attr("value",CrossSection[j].height)
-                .attr("id","cs-y-"+j)
-                .attr("data-id",+j)
-                .attr("name","point["+j+"][y]");
-
-            if(CrossSection[j].height > csHeight){
-                csHeight = CrossSection[j].height ;
-            }
-            console.log("Point ["+(j+1)+"] = " + CrossSection[j].distance+" , " + CrossSection[j].height+" |");
-            j++;
-        }
-    );*/
 
     let csWidth = CrossSection[CrossSection.length-1].distance ;
     let canvas = document.getElementById('canvas');
@@ -155,3 +142,4 @@ function draw() {
 
     }
 }
+
